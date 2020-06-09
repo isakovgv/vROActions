@@ -1,0 +1,53 @@
+//converting bitmasks
+//input:
+//bitmask as string
+
+if(!bitmask){
+	throw "UndefinedParameter: bitmask mandatory input is not defined.";
+}
+
+System.log ('Converting subnet mask /' +bitmask);
+var converted = 'Wrong Bitmask was entered: '+bitmask+' (need 0-32)';
+
+if (bitmask>= 0 && bitmask<= 32) {
+	if (bitmask ==	0)	converted='0.0.0.0';
+	if (bitmask ==	1)	converted='128.0.0.0';
+	if (bitmask ==	2)	converted='192.0.0.0';
+	if (bitmask ==	3)	converted=	'224.0.0.0';
+	if (bitmask ==	4)	converted=	'240.0.0.0';
+	if (bitmask ==	5)	converted=	'248.0.0.0';
+	if (bitmask ==	6)	converted=	'252.0.0.0';
+	if (bitmask ==	7)	converted=	'254.0.0.0';
+	if (bitmask ==	8)	converted=	'255.0.0.0';
+	if (bitmask ==	9)	converted=	'255.128.0.0';
+	if (bitmask ==	10)	converted=	'255.192.0.0';
+	if (bitmask ==	11)	converted=	'255.224.0.0';
+	if (bitmask ==	12)	converted=	'255.240.0.0';
+	if (bitmask ==	13)	converted=	'255.248.0.0';
+	if (bitmask ==	14)	converted=	'255.252.0.0';
+	if (bitmask ==	15)	converted=	'255.254.0.0';
+	if (bitmask ==	16)	converted=	'255.255.0.0';
+	if (bitmask ==	17)	converted=	'255.255.128.0';
+	if (bitmask ==	18)	converted=	'255.255.192.0';
+	if (bitmask ==	19)	converted=	'255.255.224.0';
+	if (bitmask ==	20)	converted=	'255.255.240.0';
+	if (bitmask ==	21)	converted=	'255.255.248.0';
+	if (bitmask ==	22)	converted=	'255.255.252.0';
+	if (bitmask ==	23)	converted=	'255.255.254.0';
+	if (bitmask ==	24)	converted=	'255.255.255.0';
+	if (bitmask ==	25)	converted=	'255.255.255.128';
+	if (bitmask ==	26)	converted=	'255.255.255.192';
+	if (bitmask ==	27)	converted=	'255.255.255.224';
+	if (bitmask ==	28)	converted=	'255.255.255.240';
+	if (bitmask ==	29)	converted=	'255.255.255.248';
+	if (bitmask ==	30)	converted=	'255.255.255.252';
+	if (bitmask ==	31)	converted=	'255.255.255.254';
+	if (bitmask ==	32)	converted=	'255.255.255.255';
+}
+else {
+	System.error ('Error: ' +converted);
+	return;
+}
+
+System.log ('Convertation mask: ' +converted);
+return converted;
