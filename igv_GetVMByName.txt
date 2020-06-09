@@ -1,0 +1,91 @@
+//vRO 7 action, to find VM across all vCenters by its Name
+//
+
+var vmObject = null; 
+var vmsArray = new Array;   
+
+vmname = vmname.toUpperCase();
+System.log(vmname);
+var vms = VcPlugin.getAllVirtualMachines(null,vmname);
+
+if (vms != null && vms.length >0){    
+	System.debug('Found : ' + vms.length + ' VM with name "' + vmname + '"');  
+    	if (vms.length == 1){    
+        	System.log("Match found for VM named: "+vmname);    
+        	vmObject = vms[0];    
+			return(vmObject);
+    }
+	else{    
+		System.error('Found more than one VM with the name: "' +vmname + '"');    
+        for each (vm in vms){
+			System.warn("VM ID: " +vm.id); 
+			vmsArray.push(vm);  
+        } 
+		System.error('Trying to search correct VM...');
+		for each (vm in vmsArray){
+			System.debug (vm.name)
+			if (vmname == vm.name){
+				System.log('Found: ' + vm.name);
+				vmObject = vm;
+				return(vmObject);
+			}
+		}
+    }    
+}
+
+vmname = vmname.toLowerCase();
+System.log(vmname);
+vms = VcPlugin.getAllVirtualMachines(null,vmname);
+if (vms != null && vms.length >0){    
+	System.debug('Found : ' + vms.length + ' VM with name "' + vmname + '"');  
+    	if (vms.length == 1){    
+        	System.log("Match found for VM named: " + vmname  + ' with ID:' +vms[0].id);    
+        	vmObject = vms[0];    
+			return(vmObject);
+    }
+	else{    
+		System.error('Found more than one VM with the name: "' +vmname + '"');    
+        for each (vm in vms){
+			System.warn("VM ID: " +vm.id); 
+			vmsArray.push(vm);  
+        } 
+		System.error('Trying to search correct VM...');
+		for each (vm in vmsArray){
+			System.debug (vm.name);
+			if (vmname == vm.name){
+				System.log('Found: ' + vm.name + ' with ID:' +vm.id);
+				vmObject = vm;
+				return(vmObject);
+			}
+		}
+    }    
+}
+
+System.error('No VMs Found with name "' +vmname + '"');
+System.error('Trying to search case sensitive...');
+return (CaseSensitiveSearch(vmname));
+
+
+function CaseSensitiveSearch(in_vmname){
+	var vms = VcPlugin.getAllVirtualMachines(null, "xpath:name[translate(.,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='" + in_vmname.toUpperCase() + "']");
+	var vmObject = null;    
+	if (vms != null && vms.length >0){    
+		System.debug('Found : ' + vms.length + ' VM with name "' + in_vmname + '"');  
+	    	if (vms.length == 1){    
+	        	System.log("Match found for VM named: " +in_vmname  + ' with ID:' +vms[0].id);    
+	        	vmObject = vms[0];    
+				return (vmObject);
+	    }
+		else{    
+			System.error('Found more than one VM with the name: "' +in_vmname + '"');    
+	        for each (vm in vms){
+				System.warn("VM ID: " +vm.id);   
+	        } 
+			return undefined;    
+	    }    
+	}
+	else{  
+		System.error('No VMs Found with name "' +in_vmname + '"');
+		return undefined; 
+	}
+}
