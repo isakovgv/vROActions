@@ -1,0 +1,39 @@
+//vRO 7.x action, to get random Cluster in Datacenter
+//input:
+//datacener as vc:datacener
+
+
+var clusterCount = 0;
+
+if(!datecenter){
+	throw "UndefinedParameter: datacenter mandatory input is not defined.";
+}
+
+folder = datecenter.hostFolder;
+
+//[Math.floor(Math.random() * clusterCount)];
+//finding the total number of clusters
+var children = folder.childEntity;  
+for each (child in children){  
+    if (child instanceof VcClusterComputeResource){   
+		clusterCount++;
+        System.debug("Cluster Name: "+child.name+' with number: '+clusterCount);  
+    	}
+	}  
+System.debug('Total clusters: '+clusterCount);
+//getting random cluster number
+var randomNumber = Math.floor(Math.random() * clusterCount);
+System.debug('Random cluster number: '+randomNumber);
+
+//lookin for cluster with number #clusterCount
+
+var count = 0;
+children = folder.childEntity;  
+for each (child in children){  
+    if (child instanceof VcClusterComputeResource && count == randomNumber){   
+		cluster = child;
+        System.debug("Random Cluster: "+child.name+' ' +clusterCount);  
+		return cluster;
+    	}
+	count++;
+	} 

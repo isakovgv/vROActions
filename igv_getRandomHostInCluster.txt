@@ -1,0 +1,23 @@
+//vRO 7.x action, to get random Host in Cluster
+//input:
+//cluster as vc:ClusterComputeResourse
+
+if(!cluster){
+	throw "UndefinedParameter: cluster mandatory input is not defined.";
+}
+
+var host = cluster.host[Math.floor(Math.random() * cluster.host.length)];
+var hoststate = 'connected';
+
+do {
+	host = cluster.host[Math.floor(Math.random() * cluster.host.length)];
+	var a = (host.state == hoststate);
+	var b = (host.runtime.inMaintenanceMode != false);
+	var res = (a&&!b); }
+
+while (res != true);
+	System.debug('Random hostname: '+host.name);
+	System.debug('Host Status: '+host.state);
+	System.debug('Maintenance Mode Status: '+host.runtime.inMaintenanceMode);
+
+return host;

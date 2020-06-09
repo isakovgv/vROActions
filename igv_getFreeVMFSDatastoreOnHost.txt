@@ -1,0 +1,29 @@
+//vRO 7.x action, to find the most free datastore on host 
+//input:
+//host as vc:hostname
+
+var datastoresOnHost = new Array();
+
+//select only VMFS Datastores
+for each (var datastore in host.datastore) {
+//	System.debug('Datastore type:' +datastore.summary.type);
+//	System.debug('Datastore accessible:' +datastore.summary.accessible);
+//	System.debug('Datastore overall status:' +datastore.overallStatus);
+	if (datastore.summary.type == 'VMFS' && datastore.summary.accessible == true && datastore.overallStatus != VcManagedEntityStatus.red){
+	datastoresOnHost.push(datastore);
+//	System.debug('VMFS Datastore added:' +datastore.name);
+	}
+}
+
+//select most free datastore
+selectedfree = datastoresOnHost[0];
+for each (freedatastore in datastoresOnHost){
+	if (freedatastore.freeSpace > selectedfree.freeSpace){
+	selectedfree = freedatastore;
+//	System.debug('Free Datastore: ' +freedatastore.freeSpace);
+	}
+}
+
+System.debug('Free VMFS Datastore:' +selectedfree.name);
+return selectedfree;
+

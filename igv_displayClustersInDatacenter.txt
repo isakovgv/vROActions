@@ -1,0 +1,18 @@
+//vRO 7.x action, to find all DC Clusters in a vCenters 
+//input:
+//datacenter as vc:datacenter
+
+var allClusters = new Array ();  
+  
+getAllClustersInFolder(datacenter.hostFolder);  
+return allClusters;  
+  
+function getAllClustersInFolder(folder) {   
+var children = folder.childEntity;  
+for each (child in children){  
+    if (child instanceof VcClusterComputeResource){  
+        allClusters.push(child);  
+        System.debug("Cluster added Name: "+child.name);  
+    	}
+	}
+}  

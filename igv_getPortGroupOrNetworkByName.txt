@@ -1,0 +1,25 @@
+//vRO 7.x action, to find PG or Network by name, if it exists on host
+//input:
+//host as vc:hostname
+//network_portgroup_name as string
+
+var PortGroupsOnHost = new Array();
+for each (var PortGroup in host.network_DistributedVirtualPortgroup) {
+	System.debug(PortGroup.config.name);
+	if (PortGroup.config.name == network_portgroup_name){
+		System.log('PortGroup found: '+PortGroup.config.name);
+		return PortGroup;
+	}
+}
+
+var Networks = new Array();
+for each (var Network in host.network_Network) {
+	System.log(Network.name);
+	if (Network.name == network_portgroup_name){
+		System.debug('Network found: '+Network.name);
+		return Network;
+	}
+}
+
+System.log('No such Network or PortGroup on Host');
+return;

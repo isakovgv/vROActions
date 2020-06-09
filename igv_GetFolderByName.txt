@@ -1,0 +1,28 @@
+//vRO 7.x action, to find Folder by Name 
+//input:
+//datacenter as vc:datacenter
+//foldername as string
+
+var found = 0;
+var folder = datacenter.vmFolder;  
+var resultFolder; 
+searchFolderByName(folder);
+if (found == 0){
+	System.error('No such folder "'+foldername+'" in Datacenter "'+datacenter.name+'"');  
+};
+return resultFolder;
+
+function searchFolderByName(folder){
+	var children = folder.childEntity; 
+	for each (child in children){  
+    	if (child instanceof VcFolder){  
+        	if (child.name == foldername) { 
+        		System.warn('Folder found: ' +child.name); 
+				found ++; 
+				System.debug('===== '+found);
+				resultFolder = child;
+			}  
+			searchFolderByName(child);
+    	}  
+	}	
+}

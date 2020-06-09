@@ -1,5 +1,6 @@
-//vRO 7 action, to find VM across all vCenters by its Name
-//
+//vRO 7.x action, to find VM across all vCenters by its Name
+//input:
+//vmname as string
 
 var vmObject = null; 
 var vmsArray = new Array;   
